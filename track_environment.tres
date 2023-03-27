@@ -1,0 +1,35 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://uwgolmsc27bt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jl2kb"]
+viewport_path = NodePath("Skybox3D")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fob0u"]
+resource_local_to_scene = true
+panorama = SubResource("ViewportTexture_jl2kb")
+
+[sub_resource type="Sky" id="Sky_2dkos"]
+resource_local_to_scene = true
+sky_material = SubResource("PanoramaSkyMaterial_fob0u")
+
+[resource]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.44, 0.44, 0.44, 1)
+sky = SubResource("Sky_2dkos")
+ssao_intensity = 16.0
+ssao_power = 1.44891
+ssao_detail = 5.0
+ssao_horizon = 0.09
+ssao_sharpness = 1.0
+ssil_radius = 2.75
+ssil_intensity = 6.17
+sdfgi_use_occlusion = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.403922, 0.482353, 0.529412, 1)
+fog_density = 0.002
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.02
+volumetric_fog_sky_affect = 0.5
+adjustment_contrast = 1.19
+adjustment_saturation = 1.09

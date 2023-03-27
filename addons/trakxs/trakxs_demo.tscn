@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmlttrcitmlb2"]
+
+[sub_resource type="Curve3D" id="Curve3D_oxq6x"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.713, -1.638, 15.198, 0.570446, -0.79144, 3.10746, 0, 0, 0, -0.758937, 1.08827, 4.26425, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="trakxs_demo" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_oxq6x")
+
+[node name="GridMap" type="GridMap" parent="."]

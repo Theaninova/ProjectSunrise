@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm8km15k6ylaq"]
+
+[sub_resource type="Environment" id="Environment_fwp3j"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fwp3j")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10414, 2.55117)

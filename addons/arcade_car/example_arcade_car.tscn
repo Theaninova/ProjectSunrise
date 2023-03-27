@@ -1,0 +1,125 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://addons/arcade_car/arcade_car_node.gd" id="1_opekl"]
+[ext_resource type="PackedScene" uid="uid://dbdqukt8whm3m" path="res://addons/arcardx/Camaro_body.glb" id="2_fx456"]
+[ext_resource type="Script" path="res://addons/arcade_car/arcade_car_tire.gd" id="2_nvnvd"]
+[ext_resource type="Script" path="res://addons/arcade_car/arcade_car_wheel.gd" id="3_qbnh3"]
+[ext_resource type="PackedScene" uid="uid://bwei27afxfmss" path="res://addons/arcade_car/Camaro_wheel.glb" id="4_04t30"]
+[ext_resource type="Script" path="res://addons/arcade_car/arcade_car_engine.gd" id="5_6l2x7"]
+[ext_resource type="Script" path="res://addons/arcade_car/ArcadeCarGearbox.gd" id="6_yb1sw"]
+
+[sub_resource type="GDScript" id="GDScript_qc6sm"]
+script/source = "extends Resource
+
+class_name ArcadeCarReality
+
+@export_range(0, 20, 0.01, \"or_greater\", \"suffix:m/s²\")
+var gravity: float = 9.81
+
+@export_range(-100, 100, 0.1, \"or_greater\", \"or_less\", \"suffix:°C\")
+var temperature: float = 21
+
+@export_group(\"Atmosphere\", \"atmosphere\")
+
+@export_range(0, 200, 0.1, \"or_greater\", \"suffix:kPa\")
+var atmosphere_pressure: float = 101.3
+
+@export_group(\"Reality Bending\")
+
+@export_exp_easing(\"inout\")
+var drift: float = -12.5
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="Resource" id="Resource_s18ec"]
+script = SubResource("GDScript_qc6sm")
+gravity = 9.81
+temperature = 21.0
+atmosphere_pressure = 101.3
+drift = -12.5
+
+[sub_resource type="Resource" id="Resource_1que7"]
+script = ExtResource("2_nvnvd")
+pressure = 200.0
+radius = 15.0
+width = 10.0
+drift_traction = 70.0
+fluid_flow = 2.0
+penetration = 1.0
+
+[sub_resource type="Curve" id="Curve_p58iw"]
+_data = [Vector2(0, 0), 0.0, 2.03058, 0, 0, Vector2(0.708791, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.163636), -5.56529, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_npbfx"]
+_data = [Vector2(0, 0), 0.0, 2.94141, 0, 0, Vector2(0.532967, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.327273), -4.53397, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_q4iyq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.92285, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_pxmlw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.75758, 0.0, 0, 0]
+point_count = 2
+
+[node name="Example Arcade Car" type="Node3D"]
+script = ExtResource("1_opekl")
+reality = SubResource("Resource_s18ec")
+tires = SubResource("Resource_1que7")
+power_curve = SubResource("Curve_p58iw")
+torque_curve = SubResource("Curve_npbfx")
+drift_angle_curve = SubResource("Curve_q4iyq")
+drift_friction_curve = SubResource("Curve_pxmlw")
+
+[node name="Body" parent="." instance=ExtResource("2_fx456")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+
+[node name="Front Left Wheel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, -0.28, 2.52)
+script = ExtResource("3_qbnh3")
+steering = true
+
+[node name="Camaro_wheel" parent="Front Left Wheel" instance=ExtResource("4_04t30")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+
+[node name="Front Right Wheel" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.7, -0.28, 2.52)
+script = ExtResource("3_qbnh3")
+steering = true
+
+[node name="Camaro_wheel" parent="Front Right Wheel" instance=ExtResource("4_04t30")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+
+[node name="Rear Left Wheel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, -0.28, -0.14)
+script = ExtResource("3_qbnh3")
+powered = true
+
+[node name="Camaro_wheel" parent="Rear Left Wheel" instance=ExtResource("4_04t30")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+
+[node name="Rear Right Wheel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.28, -0.14)
+script = ExtResource("3_qbnh3")
+powered = true
+
+[node name="Camaro_wheel" parent="Rear Right Wheel" instance=ExtResource("4_04t30")]
+transform = Transform3D(-1.4, 0, -1.22392e-07, 0, 1.4, 0, 1.22392e-07, 0, -1.4, 0, 0, 0)
+
+[node name="Rear View Camera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.158, -2.839)
+
+[node name="Engine" type="Node" parent="."]
+script = ExtResource("5_6l2x7")
+
+[node name="Gearbox" type="Node3D" parent="."]
+script = ExtResource("6_yb1sw")

@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgqohq4nst3n2"]
+
+[ext_resource type="Shader" path="res://addons/skybox_3d/panorama_cam.gdshader" id="1_y0r6w"]
+[ext_resource type="Script" path="res://addons/skybox_3d/panorama_render.gd" id="2_smyj6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4nh3k"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kvvuo"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_765tr"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h1gow"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ldwm7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m38x3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve7d6"]
+shader = ExtResource("1_y0r6w")
+shader_parameter/ForwardTexture = SubResource("ViewportTexture_765tr")
+shader_parameter/LeftTexture = SubResource("ViewportTexture_h1gow")
+shader_parameter/BackTexture = SubResource("ViewportTexture_4nh3k")
+shader_parameter/RightTexture = SubResource("ViewportTexture_ldwm7")
+shader_parameter/TopTexture = SubResource("ViewportTexture_m38x3")
+shader_parameter/BottomTexture = SubResource("ViewportTexture_kvvuo")
+
+[node name="panorama_cam" type="Node3D"]
+
+[node name="renderer" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ve7d6")
+offset_right = 1024.0
+offset_bottom = 512.0
+script = ExtResource("2_smyj6")
+
+[node name="Forward" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="ForwardCam" type="Camera3D" parent="Forward"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+fov = 90.0
+
+[node name="Backward" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Backward"]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
+fov = 90.0
+
+[node name="Left" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Left"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0, 0)
+fov = 90.0
+
+[node name="Right" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Right"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+fov = 90.0
+
+[node name="Top" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Top"]
+transform = Transform3D(1, -2.13163e-14, 3.82137e-15, 3.82137e-15, 4.37114e-08, -1, 2.13163e-14, 1, 4.37114e-08, 0, 0, 0)
+fov = 90.0
+
+[node name="Bottom" type="SubViewport" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Bottom"]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0, 0)
+fov = 90.0

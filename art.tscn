@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyunngmrbsqvn"]
+
+[sub_resource type="Curve3D" id="Curve3D_gxh0j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -36.4798, -0.575073, -132.498, -40.5756, 0, -55.3246, 40.5756, 0, 55.3246, 106.028, 0, -47.7067, -24.7996, -0.587303, -46.2501, 24.7996, 0.587303, 46.2501, 131.32, -0.890617, 66.5735, 39.6716, 0, -31.0764, -39.6716, 0, 31.0764, 46.8616, 1.58628, 179.615, 157.473, 11.2629, -6.63043, -157.473, -11.2629, 6.63043, -187.294, 0, 226.916),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ejdil"]
+sky_top_color = Color(0.415686, 0.278431, 0.992157, 1)
+sky_horizon_color = Color(0.945098, 0.517647, 0.431373, 1)
+sky_curve = 0.184672
+ground_bottom_color = Color(0.184314, 0.105882, 0.380392, 1)
+ground_horizon_color = Color(0.835294, 0.584314, 0.533333, 1)
+ground_curve = 0.0221915
+sun_angle_max = 25.55
+sun_curve = 2.85409
+
+[sub_resource type="Sky" id="Sky_x3nw4"]
+sky_material = SubResource("ProceduralSkyMaterial_ejdil")
+
+[sub_resource type="Environment" id="Environment_dy3in"]
+background_mode = 2
+sky = SubResource("Sky_x3nw4")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssao_radius = 1.93
+ssao_intensity = 2.34
+ssao_power = 4.24263
+ssao_detail = 1.76
+ssao_horizon = 0.24
+ssao_sharpness = 1.0
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.729412, 0.4, 0.764706, 1)
+fog_light_energy = 0.16
+fog_sun_scatter = 0.06
+fog_density = 0.0211
+fog_aerial_perspective = 0.663
+fog_sky_affect = 0.295
+volumetric_fog_density = 0.1513
+volumetric_fog_albedo = Color(0.498039, 0.529412, 0.992157, 1)
+volumetric_fog_sky_affect = 0.049
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0711823, 0.121201, 2.00584)
+curve = SubResource("Curve3D_gxh0j")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0169649, 1.19209e-07, 0.00126076)
+polygon = PackedVector2Array(-1.76538, 0.000230312, -6.55278, -0.0209221, -6.4544, 0.360594, -6.20009, 1.35322, -5.66973, 1.41226, -5.94348, 0.39246, 2.16336, 0.344443, 3.05937, 0.977258, 3.03589, 4.15769, 2.83704, 4.42575, 3.01742, 4.62862, 3.33234, 4.60567, 3.47462, 4.39052, 3.34374, 4.16901, 3.4901, 0.102088, 2.12268, -0.00473571)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100.725, 12.5124, 43.4964)
+size = Vector3(6.61608, 54.3181, 8.46621)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dy3in")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.936551, -0.349908, -0.0209139, 0.350515, 0.934247, 0.065736, -0.00346276, -0.0688957, 0.997618, 11.4124, 19.4686, -0.3122)
+light_color = Color(0.831373, 0.615686, 0.964706, 1)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_split_1 = 1.0
+directional_shadow_split_2 = 0.0
+directional_shadow_fade_start = 0.727
+directional_shadow_max_distance = 272.2
+directional_shadow_pancake_size = 40.3

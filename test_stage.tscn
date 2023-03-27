@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://si786aoxwatm"]
+
+[ext_resource type="Script" path="res://NULib/Nodes/Stage.cs" id="1_gya1i"]
+[ext_resource type="Environment" uid="uid://uwgolmsc27bt" path="res://track_environment.tres" id="2_8brt2"]
+[ext_resource type="Script" path="res://Materials/test.gd" id="3_3oyw4"]
+[ext_resource type="Script" path="res://addons/skybox_3d/panorama_viewport.gd" id="4_bqtn1"]
+
+[sub_resource type="Environment" id="Environment_1kg7v"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.6
+adjustment_enabled = true
+adjustment_contrast = 1.69
+adjustment_saturation = 1.03
+
+[sub_resource type="Animation" id="Animation_mp8u6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-117.817, 26.222, 9.247)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.240855, -2.20435, 0.111701)]
+}
+
+[sub_resource type="Animation" id="Animation_btq1d"]
+resource_name = "new_animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("../Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("../Camera3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array()
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-164.123, 24.336, -30.306), Vector3(-119.754, 46.371, 9.247)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0122173, -2.70177, 0.240855), Vector3(-0.286234, 0.242601, 0.0436332)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bojph"]
+_data = {
+"RESET": SubResource("Animation_mp8u6"),
+"new_animation": SubResource("Animation_btq1d")
+}
+
+[node name="test_stage" type="Node3D"]
+
+[node name="Skybox3D" type="SubViewport" parent="."]
+disable_3d = true
+own_world_3d = true
+size = Vector2i(1024, 512)
+script = ExtResource("4_bqtn1")
+
+[node name="SkyboxMesh" type="Node3D" parent="Skybox3D"]
+script = ExtResource("1_gya1i")
+StageName = "COMMON"
+AsyncLoading = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Skybox3D"]
+environment = SubResource("Environment_1kg7v")
+
+[node name="StageMesh" type="Node3D" parent="."]
+script = ExtResource("1_gya1i")
+AsyncLoading = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.566894, 0.257034, -0.782665, 0.108251, 0.965082, 0.238533, 0.816647, 0.0504985, -0.574924, -117.817, 26.222, 9.247)
+script = ExtResource("3_3oyw4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "new_animation"
+libraries = {
+"": SubResource("AnimationLibrary_bojph")
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_8brt2")

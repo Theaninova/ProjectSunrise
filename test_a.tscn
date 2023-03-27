@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcanvbfsdpfgu"]
+
+[ext_resource type="Script" path="res://NULib/Nodes/EnvParam.cs" id="1_dm327"]
+
+[node name="test_a" type="Node3D"]
+script = ExtResource("1_dm327")
+Path = "game://data/course/stage/A_HAKONE_DAY_NML/HAKONE/env_param"

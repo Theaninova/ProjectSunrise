@@ -1,0 +1,34 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://c7ibr3vxyeagh"]
+
+[sub_resource type="VisualShaderNodeCubemapParameter" id="VisualShaderNodeCubemapParameter_rnwln"]
+parameter_name = "CubemapParameter"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeCubemap" id="VisualShaderNodeCubemap_t72jp"]
+source = 1
+
+[resource]
+code = "shader_type spatial;
+uniform samplerCube CubemapParameter : source_color;
+
+
+
+void light() {
+	vec4 n_out3p0;
+// Cubemap:3
+	n_out3p0 = texture(CubemapParameter, vec3(UV, 0.0));
+
+
+// Output:0
+	DIFFUSE_LIGHT = vec3(n_out3p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-562.976, 5.87323)
+nodes/light/0/position = Vector2(400, 160)
+nodes/light/2/node = SubResource("VisualShaderNodeCubemapParameter_rnwln")
+nodes/light/2/position = Vector2(-460, 320)
+nodes/light/3/node = SubResource("VisualShaderNodeCubemap_t72jp")
+nodes/light/3/position = Vector2(60, 180)
+nodes/light/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 0, 0)

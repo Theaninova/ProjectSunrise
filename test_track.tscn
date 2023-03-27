@@ -1,0 +1,260 @@
+[gd_scene load_steps=9 format=3 uid="uid://d4ijr145h7syh"]
+
+[ext_resource type="Script" path="res://car.gd" id="1_61m8u"]
+[ext_resource type="Shader" uid="uid://tlm0fqxpuy0q" path="res://placeholder.tres" id="1_x2yht"]
+[ext_resource type="Script" path="res://Car/car2.gd" id="3_d313k"]
+[ext_resource type="Environment" uid="uid://uwgolmsc27bt" path="res://track_environment.tres" id="3_m4q2e"]
+[ext_resource type="Script" path="res://Car/tire.gd" id="4_wft7r"]
+[ext_resource type="PackedScene" path="res://addons/arcade_car/example_arcade_car.tscn" id="5_t1oaq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rq8r0"]
+render_priority = 0
+shader = ExtResource("1_x2yht")
+shader_parameter/Scale = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8l5hu"]
+albedo_color = Color(1, 0.282353, 1, 1)
+metallic = 1.0
+roughness = 0.41
+clearcoat_enabled = true
+clearcoat_roughness = 0.25
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(324, 1, 362)
+material = SubResource("ShaderMaterial_rq8r0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+use_collision = true
+size = Vector3(1, 18, 30)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4491, 0, 0)
+use_collision = true
+size = Vector3(1, 18, 30)
+
+[node name="Car" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64362, 0)
+script = ExtResource("1_61m8u")
+
+[node name="RayCast3D" type="RayCast3D" parent="Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03408, 0.0421747, 2.01742)
+
+[node name="VisualCar" type="CSGBox3D" parent="Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013586, 0.794244, -0.0216532)
+size = Vector3(2.2, 1.5, 5)
+material = SubResource("StandardMaterial3D_8l5hu")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Car/VisualCar"]
+transform = Transform3D(1, 0, 0, 0, 0.921179, 0.38914, 0, -0.38914, 0.921179, 0, 0.694747, -1.3635)
+operation = 2
+size = Vector3(2.93041, 1, 4.08663)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Car/VisualCar"]
+transform = Transform3D(1, 0, 0, 0, 0.77038, -0.637585, 0, 0.637585, 0.77038, 0, 0.694747, 2.23388)
+operation = 2
+size = Vector3(2.93041, 1, 4.08663)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Car/VisualCar"]
+transform = Transform3D(0.43314, -0.901327, 0, 0.901327, 0.43314, 0, 0, 0, 1, -1.21774, 0.631919, -0.0961276)
+operation = 2
+size = Vector3(2.93041, 1, 6.51333)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Car/VisualCar"]
+transform = Transform3D(0.433659, 0.901077, 0, -0.901077, 0.433659, 0, 0, 0, 1, 1.23623, 0.682781, -0.0846874)
+operation = 2
+size = Vector3(2.93041, 1, 6.51333)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Car/VisualCar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.0599, -0.666266, 2.03304)
+radius = 0.295
+height = 0.144632
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Car/VisualCar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.06, -0.666, 2.033)
+radius = 0.295
+height = 0.144632
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Car/VisualCar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.06, -0.666, -2.033)
+radius = 0.295
+height = 0.144632
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Car/VisualCar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.06, -0.666, -2.033)
+radius = 0.295
+height = 0.144632
+
+[node name="Camera3D" type="Camera3D" parent="Car/VisualCar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013586, 1.27576, 5.55065)
+fov = 78.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838217, 0.239145, -2.64331)
+light_energy = 15.933
+shadow_enabled = true
+spot_range = 8.7027
+spot_angle = 22.9147
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.626533, 0.239145, -2.64331)
+light_energy = 15.933
+shadow_enabled = true
+spot_range = 8.26845
+spot_angle = 21.9905
+
+[node name="Control" type="Control" parent="Car"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="speed" type="Label" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1047.0
+offset_top = 719.0
+offset_right = 1128.0
+offset_bottom = 747.0
+text = "50 km/h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="accel2" type="Label" parent="Car/Control"]
+layout_mode = 0
+offset_left = 966.0
+offset_top = 721.0
+offset_right = 1047.0
+offset_bottom = 749.0
+text = "3 m/s²"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="angular_vel" type="Label" parent="Car/Control"]
+layout_mode = 0
+offset_left = 964.0
+offset_top = 691.0
+offset_right = 1045.0
+offset_bottom = 719.0
+text = "3°/s²"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="turn" type="Label" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1049.0
+offset_top = 687.0
+offset_right = 1130.0
+offset_bottom = 715.0
+text = "30°/s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="accel" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 651.0
+offset_right = 1255.0
+offset_bottom = 705.0
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="left" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1143.0
+offset_top = 717.0
+offset_right = 1208.0
+offset_bottom = 749.0
+max_value = 1.0
+step = 0.001
+fill_mode = 1
+show_percentage = false
+
+[node name="right" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1267.0
+offset_top = 718.0
+offset_right = 1333.0
+offset_bottom = 747.0
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="drift_amount" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 978.0
+offset_top = 658.0
+offset_right = 1125.0
+offset_bottom = 683.0
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="Car/Control/drift_amount"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = -1.0
+offset_right = 125.0
+offset_bottom = 25.0
+text = "drift amount"
+
+[node name="drift_speed_loss" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 627.0
+offset_right = 1123.0
+offset_bottom = 652.0
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="Car/Control/drift_speed_loss"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 1.0
+offset_right = 133.0
+offset_bottom = 27.0
+text = "drift speed loss"
+
+[node name="brake" type="ProgressBar" parent="Car/Control"]
+layout_mode = 0
+offset_left = 1219.0
+offset_top = 715.0
+offset_right = 1254.0
+offset_bottom = 748.0
+max_value = 1.0
+step = 0.001
+fill_mode = 2
+show_percentage = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.787786, 0.279581, 0.548842, -0.548841, 0.723072, 0.419452, -0.279581, -0.631666, 0.723072, 10.2675, 14.701, 13.9203)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_m4q2e")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.670379, -69.2972)
+use_collision = true
+size = Vector3(11.2699, 3.00144, 8.8511)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.916495, -0.400045, 0, 0.400045, 0.916495, 0, -0.980726, -61.4369)
+use_collision = true
+size = Vector3(11.2699, 3.00144, 8.8511)
+
+[node name="Car2" type="Node3D" parent="."]
+script = ExtResource("3_d313k")
+
+[node name="Tire" type="Node3D" parent="Car2"]
+script = ExtResource("4_wft7r")
+
+[node name="Example Arcade Car" parent="." instance=ExtResource("5_t1oaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0883, 11.807)
+reality = null

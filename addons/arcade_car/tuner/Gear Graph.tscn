@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdljyeuk0lmba"]
+
+[ext_resource type="Script" path="res://addons/arcade_car/tuner/Gear Graph.gd" id="1_hefey"]
+[ext_resource type="Script" path="res://addons/arcade_car/tuner/bell_curve.gd" id="2_jenie"]
+
+[node name="Gear Graph" type="Control"]
+custom_minimum_size = Vector2(256, 128)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hefey")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(132, 64)
+
+[node name="BellCurve2D" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 161.0
+offset_bottom = 99.0
+script = ExtResource("2_jenie")

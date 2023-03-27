@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://celpik46ys4dm"]
+
+[ext_resource type="Script" path="res://addons/skybox_3d/panorama_viewport.gd" id="1_j6nrt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lkpk5"]
+viewport_path = NodePath("Skybox")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_uc6jd"]
+resource_local_to_scene = true
+panorama = SubResource("ViewportTexture_lkpk5")
+
+[sub_resource type="Sky" id="Sky_8033p"]
+sky_material = SubResource("PanoramaSkyMaterial_uc6jd")
+
+[sub_resource type="Environment" id="Environment_o3r08"]
+background_mode = 2
+sky = SubResource("Sky_8033p")
+
+[node name="test_scene" type="Node3D"]
+
+[node name="Skybox" type="SubViewport" parent="."]
+disable_3d = true
+own_world_3d = true
+size = Vector2i(1024, 512)
+script = ExtResource("1_j6nrt")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Skybox"]
+transform = Transform3D(0.807867, -0.589366, 0, 0.47853, 0.65594, -0.58374, 0.344036, 0.471584, 0.811941, 0, 0, 0)
+inner_radius = 407.567
+outer_radius = 356.397
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Skybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9986, 6.95673, -3.69845)
+radius = 6.09726
+
+[node name="Labelz+" type="Label3D" parent="Skybox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -39.1741)
+pixel_size = 1.3383
+text = "Z+"
+
+[node name="Labelz-" type="Label3D" parent="Skybox"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 39.174)
+pixel_size = 1.3383
+text = "Z-"
+
+[node name="Labelx+" type="Label3D" parent="Skybox"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 39.174, 0, 0)
+pixel_size = 1.3383
+text = "x+
+"
+
+[node name="Labelx-" type="Label3D" parent="Skybox"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -39.174, 0, 0)
+pixel_size = 1.3383
+text = "x-"
+
+[node name="Labely+" type="Label3D" parent="Skybox"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 39.174, 0)
+pixel_size = 1.3383
+text = "y+
+"
+
+[node name="Labely-" type="Label3D" parent="Skybox"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, -39.174, 0)
+pixel_size = 1.3383
+text = "y-
+"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o3r08")

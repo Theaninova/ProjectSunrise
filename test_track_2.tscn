@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4i8tf6gxw1m7"]
+
+[ext_resource type="Shader" uid="uid://tlm0fqxpuy0q" path="res://placeholder.tres" id="1_c7bbh"]
+[ext_resource type="Script" path="res://addons/arcardx/arcardx.gd" id="2_v5q3u"]
+[ext_resource type="PackedScene" uid="uid://dbdqukt8whm3m" path="res://addons/arcardx/Camaro_body.glb" id="3_kv7of"]
+[ext_resource type="Script" path="res://addons/arcardx/arcarui.gd" id="4_i0cpp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rq8r0"]
+render_priority = 0
+shader = ExtResource("1_c7bbh")
+shader_parameter/Scale = 10.0
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_1yufb"]
+energy_multiplier = 1.46
+
+[sub_resource type="Sky" id="Sky_2dkos"]
+sky_material = SubResource("PhysicalSkyMaterial_1yufb")
+
+[sub_resource type="Environment" id="Environment_64jkc"]
+background_mode = 2
+sky = SubResource("Sky_2dkos")
+ambient_light_source = 3
+ambient_light_color = Color(0.4, 0.6, 1, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+ssil_radius = 5.5
+sdfgi_use_occlusion = true
+glow_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="Curve" id="Curve_jpmot"]
+_data = [Vector2(0, 0.2), 0.0, 3.56364, 0, 0, Vector2(0.164835, 0.572727), 0.0, 0.0, 0, 0, Vector2(0.258242, 0.527273), -0.242129, -0.242129, 0, 0, Vector2(0.357143, 0.409091), 0.0, 0.0, 0, 0, Vector2(0.521978, 1), 0.0, 0.0, 0, 0, Vector2(0.637363, 0.945454), 0.0, 0.0, 0, 0, Vector2(0.763736, 0.945454), 0.0, 0.0, 0, 0, Vector2(1, 0.381818), -10.4788, 0.0, 0, 0]
+point_count = 8
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(324, 1, 362)
+material = SubResource("ShaderMaterial_rq8r0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+use_collision = true
+size = Vector3(1, 18, 30)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4491, 0, 0)
+use_collision = true
+size = Vector3(1, 18, 30)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.787786, 0.279581, 0.548842, -0.548841, 0.723072, 0.419452, -0.279581, -0.631666, 0.723072, 10.2675, 14.701, 13.9203)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_64jkc")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.670379, -69.2972)
+use_collision = true
+size = Vector3(11.2699, 3.00144, 8.8511)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.916495, -0.400045, 0, 0.400045, 0.916495, 0, -0.980726, -61.4369)
+use_collision = true
+size = Vector3(11.2699, 3.00144, 8.8511)
+
+[node name="ArcarDX" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812896, 0)
+script = ExtResource("2_v5q3u")
+rev_limit = 10000.0
+power_curve = SubResource("Curve_jpmot")
+
+[node name="Camaro_body" parent="ArcarDX" instance=ExtResource("3_kv7of")]
+transform = Transform3D(-1.579, 0, -1.38041e-07, 0, 1.579, 0, 1.38041e-07, 0, -1.579, -1.41494e-07, 0.126737, 1.0238)
+
+[node name="Camera3D" type="Camera3D" parent="ArcarDX"]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 1.41494e-07, 1.451, 4.2608)
+
+[node name="ArcarUI" type="GridContainer" parent="ArcarDX" node_paths=PackedStringArray("arcar_dx")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("4_i0cpp")
+arcar_dx = NodePath("..")
+
+[node name="ui_revs" type="Label" parent="ArcarDX/ArcarUI"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ui_speed" type="Label" parent="ArcarDX/ArcarUI"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 2
+vertical_alignment = 1
